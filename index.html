@@ -82,7 +82,7 @@
 <p>Within the context of COBECORE handwritten text recognition happens within the very specific context of tabulated data. Given the context of this problem, i.e. snippets of tables with numbers, it can be approached solving a <a href="https://en.wikipedia.org/wiki/CAPTCHA" class="external-link">captcha</a>. With the “noise” of table cell boundary lines and other smudges on old paper this comparison is more than fitting.</p>
 <p>Generally, solving captcha problems can be done using a RCNN + CTC loss setup. The Keras introduction into the <a href="https://keras.io/examples/vision/captcha_ocr/" class="external-link">captcha problem</a> provides the baseline, to be expanded to <a href="https://keras.io/examples/vision/handwriting_recognition/" class="external-link">handwritten text</a> in another demo - accounting for varying input image sizes. In a quick test I used the vanilla Keras handwritten text recognition code, adapted to the COBECORE climate data formatting (separate labels and images, some cropping) to learn to recognize the value of climate variables.</p>
 <p>A simple test on a subset of the data (~10K images, instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.</p>
-<p><img src="https://github.com/khufkens/OCR_climate/blob/f58311cdac8b4a28b9cd106bf87e11b6b92a715f/manuscript/test_results.png"></p>
+<p><img src="https://raw.githubusercontent.com/bluegreen-labs/OCR_climate/main/manuscript/test_results.png"></p>
 </div>
 <div class="section level2">
 <h2 id="next-steps">Next steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
