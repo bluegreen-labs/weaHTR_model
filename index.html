@@ -72,6 +72,27 @@
 <div class="page-header"><h1 id="ocr-climate">OCR Climate<a class="anchor" aria-label="anchor" href="#ocr-climate"></a>
 </h1></div>
 <p>Optical Character Recognition for historical climate data</p>
+<div class="section level2">
+<h2 id="getting-tensorflow-to-work-sort-of-consistently">Getting Tensorflow to work (sort of consistently)<a class="anchor" aria-label="anchor" href="#getting-tensorflow-to-work-sort-of-consistently"></a>
+</h2>
+<p>Install docker per usual and add the user to the docker user group.</p>
+<pre><code>sudo usermod -aG docker $USER</code></pre>
+<p>Install the Nvidia container toolkit.</p>
+<pre><code>sudo apt install nvidia-container-toolkit</code></pre>
+<p>Configure the toolkit to recognize the GPUs in docker.</p>
+<pre><code>sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker</code></pre>
+<p>Run grab the default image to built upon, this should fire up a console in which the GPUs should be active.</p>
+<pre><code>docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:23.09-tf2-py3</code></pre>
+<p>Mounting external files can be done using:</p>
+<pre><code>docker run --gpus all -it --rm -v $(pwd):/current_project/ nvcr.io/nvidia/tensorflow:23.09-tf2-py3</code></pre>
+<p>Which will set /current_project/ as the mount point for the current (present) working directory (pwd).</p>
+</div>
+<div class="section level2">
+<h2 id="custom-dockerfile">Custom Dockerfile<a class="anchor" aria-label="anchor" href="#custom-dockerfile"></a>
+</h2>
+<p>A docker file is included which builds a custom environment, using the tensorflow setup as a basis, adding Jupyter notebooks for easier interaction with the docker container and the option to visualize things (the other option is forwarding X sessions which is security wise probably iffy).</p>
+</div>
 </div>
   </div>
 
