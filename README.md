@@ -1,4 +1,4 @@
-# OCR Climate
+# OCR Climate (proof of concept)
 
 ## Introduction
 
@@ -12,7 +12,7 @@ Generally, solving captcha problems can be done using a RCNN + CTC loss setup. T
 
 A simple test on a subset of the data (~10K images, instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.
 
-![](https://github.com/khufkens/OCR_climate/blob/main/manuscript/test_results.png)
+![](test_results.png)
 
 ## Next steps
 
@@ -22,6 +22,8 @@ A simple test on a subset of the data (~10K images, instead of the total dataset
 - generate true out of sample data (extracted from novel tables)
 - consider image augmentation and contrast boosting options to increase accuracy
 - ...
+
+----
 
 ## Setup
 
