@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The “Congo basin eco-climatological data recovery and valorisation (COBECORE, contract BR/175/A3/COBECORE)” project made the static analog archives of the Institut National pour l’Etude Agronomique du Congo belge (INEAC) digitally accessible. Although a part of the climate data was transcribed using citizen science in the Jungle Weather programme (~350K values), the vast majority of the data remains digitized but not transcribed (~7M values for the main climate variables alone, i.e. temperature, rainfall). Within this context machine learning, and optical character recognition in particular, promises to bring a workable solution.
+The [“Congo basin eco-climatological data recovery and valorisation (COBECORE, contract BR/175/A3/COBECORE)” project](https://cobecore.org) made the static analog archives of the Institut National pour l’Etude Agronomique du Congo belge (INEAC) digitally accessible. Although a part of the climate data was transcribed using citizen science in the Jungle Weather programme (~350K values), the vast majority of the data remains digitized but not transcribed (~7M values for the main climate variables alone, i.e. temperature, rainfall). Within this context machine learning, and optical character recognition in particular, promises to bring a workable solution.
 
 ## Optical Character (handwritten) Recognition (OCR)
 
