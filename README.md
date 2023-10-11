@@ -12,7 +12,7 @@ Generally, solving captcha problems can be done using a RCNN + CTC loss setup. T
 
 A simple test on a subset of the data (~10K images, instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.
 
-![](https://github.com/khufkens/OCR_climate/blob/f58311cdac8b4a28b9cd106bf87e11b6b92a715f/manuscript/test_results.png)
+![](https://raw.githubusercontent.com/bluegreen-labs/OCR_climate/main/manuscript/test_results.png)
 
 ## Next steps
 
