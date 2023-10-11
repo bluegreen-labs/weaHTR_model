@@ -71,10 +71,32 @@
 <div class="section level1">
 <div class="page-header"><h1 id="ocr-climate">OCR Climate<a class="anchor" aria-label="anchor" href="#ocr-climate"></a>
 </h1></div>
-<p>Optical Character Recognition for historical climate data</p>
 <div class="section level2">
-<h2 id="getting-tensorflow-to-work-sort-of-consistently">Getting Tensorflow to work (sort of consistently)<a class="anchor" aria-label="anchor" href="#getting-tensorflow-to-work-sort-of-consistently"></a>
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<p>This is the start of Optical Character Recognition for historical climate data. Basically, handwritten text recognition within the very specific context of tabulated data. Given the context of this problem, snippets of tables with numbers, it can be approached solving a <a href="https://en.wikipedia.org/wiki/CAPTCHA" class="external-link">captcha</a>. With the table cell boundary lines this comparison is more than fitting.</p>
+<p>Generally, solving captcha problems can be done using an RCNN + CTC loss setup. The Keras introduction into the <a href="https://keras.io/examples/vision/captcha_ocr/" class="external-link">captcha problem</a> provides the baseline, to be expanded to <a href="https://keras.io/examples/vision/handwriting_recognition/" class="external-link">handwritten text</a> in another demo. In this quick test I use the vanilla Keras handwritten text recognition code, adapted to the COBECORE climate data formatting (separate labels and images, some cropping) to learn to recognize the value of climate variables.</p>
+<p>A simple test on a subset of the data ~10K images in total (instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.</p>
+<p><img src="https://github.com/khufkens/OCR_climate/blob/main/manuscript/test_results.png"></p>
+</div>
+<div class="section level2">
+<h2 id="next-steps">Next steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
+</h2>
+<ul>
+<li>formalize the code (potentially Keras in R for consistency)</li>
+<li>formalize accuracy metrics (evaluation)</li>
+<li>expand training data and matching testing</li>
+<li>generate true out of sample data (extracted from novel tables)</li>
+<li>consider image augmentation and contrast boosting options to increase accuracy</li>
+<li>…</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
+<div class="section level3">
+<h3 id="getting-tensorflow-to-work-sort-of-consistently">Getting Tensorflow to work (sort of consistently)<a class="anchor" aria-label="anchor" href="#getting-tensorflow-to-work-sort-of-consistently"></a>
+</h3>
 <p>Install docker per usual and add the user to the docker user group.</p>
 <pre><code>sudo usermod -aG docker $USER</code></pre>
 <p>Install the Nvidia container toolkit.</p>
@@ -88,10 +110,11 @@ sudo systemctl restart docker</code></pre>
 <pre><code>docker run --gpus all -it --rm -v $(pwd):/current_project/ nvcr.io/nvidia/tensorflow:23.09-tf2-py3</code></pre>
 <p>Which will set /current_project/ as the mount point for the current (present) working directory (pwd).</p>
 </div>
-<div class="section level2">
-<h2 id="custom-dockerfile">Custom Dockerfile<a class="anchor" aria-label="anchor" href="#custom-dockerfile"></a>
-</h2>
+<div class="section level3">
+<h3 id="custom-dockerfile">Custom Dockerfile<a class="anchor" aria-label="anchor" href="#custom-dockerfile"></a>
+</h3>
 <p>A docker file is included which builds a custom environment, using the tensorflow setup as a basis, adding Jupyter notebooks for easier interaction with the docker container and the option to visualize things (the other option is forwarding X sessions which is security wise probably iffy).</p>
+</div>
 </div>
 </div>
   </div>
