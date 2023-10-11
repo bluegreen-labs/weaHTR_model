@@ -84,6 +84,9 @@ num_to_char = StringLookup(
 
 def distortion_free_resize(image, img_size):
     w, h = img_size
+    
+    # crop to center area
+    image = tf.image.central_crop(image, central_fraction = 0.70)
     image = tf.image.resize(image, size=(h, w), preserve_aspect_ratio=True)
 
     # Check tha amount of padding needed to be done.
@@ -120,8 +123,8 @@ def distortion_free_resize(image, img_size):
 
 batch_size = 64
 padding_token = 99
-image_width = 256
-image_height = 256
+image_width = 193
+image_height = 193
 
 def preprocess_image(image_path, img_size=(image_width, image_height)):
     image = tf.io.read_file(image_path)
@@ -308,7 +311,7 @@ class EditDistanceCallback(keras.callbacks.Callback):
             f"Mean edit distance for epoch {epoch + 1}: {np.mean(edit_distances):.4f}"
         )
 
-epochs = 10  # To get good results this should be at least 50.
+epochs = 50  # To get good results this should be at least 50.
 
 model = build_model()
 prediction_model = keras.models.Model(
