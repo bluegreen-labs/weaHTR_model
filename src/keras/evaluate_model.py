@@ -1,6 +1,6 @@
 # based on https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py
 
-import os, sys
+import os, sys, random
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.layers import StringLookup
 from tensorflow import keras
 import tensorflow as tf
+
+random.seed(10)
 
 # Path to the data directory
 base_path = "../../data/"
