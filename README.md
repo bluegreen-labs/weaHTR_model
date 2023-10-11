@@ -1,14 +1,23 @@
 # OCR Climate
 
-This is the start of Optical Character Recognition for historical climate data. Basically, handwritten text recognition within the very specific context of tabulated data.
+## Introduction
 
-Given the context of this problem, snippets of tables with numbers, it can be approached solving a captcha. With the table cell boundary lines this comparison is more than fitting.
+This is the start of Optical Character Recognition for historical climate data. Basically, handwritten text recognition within the very specific context of tabulated data. Given the context of this problem, snippets of tables with numbers, it can be approached solving a [captcha](https://en.wikipedia.org/wiki/CAPTCHA). With the table cell boundary lines this comparison is more than fitting.
 
-Generally solving captcha problems can be done using an RCNN + CTC loss setup. The Keras introduction into the [captcha problem](https://keras.io/examples/vision/captcha_ocr/) provides the baseline, to be expanded to [handwritten text](https://keras.io/examples/vision/handwriting_recognition/) in another demo. In this quick test I use the vanilla handwritten text recognition code, adapted to the COBECORE climate data formatting (separate labels and images) to learn to recognize the value of climate variables.
+Generally, solving captcha problems can be done using an RCNN + CTC loss setup. The Keras introduction into the [captcha problem](https://keras.io/examples/vision/captcha_ocr/) provides the baseline, to be expanded to [handwritten text](https://keras.io/examples/vision/handwriting_recognition/) in another demo. In this quick test I use the vanilla Keras handwritten text recognition code, adapted to the COBECORE climate data formatting (separate labels and images, some cropping) to learn to recognize the value of climate variables.
 
 A simple test on a subset of the data ~10K images in total (instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.
 
 ![](https://github.com/khufkens/OCR_climate/blob/main/manuscript/test_results.png)
+
+## Next steps
+
+- formalize the code (potentially Keras in R for consistency)
+- formalize accuracy metrics (evaluation)
+- expand training data and matching testing
+- generate true out of sample data (extracted from novel tables)
+- consider image augmentation and contrast boosting options to increase accuracy
+- ...
 
 ## Setup
 
