@@ -12,7 +12,7 @@ Generally, solving captcha problems can be done using a CRNN + CTC loss setup. T
 
 A simple test on a subset of the data (~10K images, instead of the total dataset of ~350K) shows reasonable performance (see image below). Given these results the exercise should be expanded to the full dataset, including many more writing styles to increase model robustness.
 
-![](https://raw.githubusercontent.com/bluegreen-labs/weaHTR/main/manuscript/test_results.png)
+![](https://raw.githubusercontent.com/bluegreen-labs/weaHTR/main/manuscript/test_results.png?token=GHSAT0AAAAAACO5W22MAI3SVWLFMWU66Y72ZTRI4BQ)
 
 ## Next steps
 
