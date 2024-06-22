@@ -12,6 +12,7 @@
 
 import random
 import cv2
+import numpy as np
 import albumentations as A
 import torch
 from torchvision import datasets, transforms
@@ -25,6 +26,9 @@ from utils import *
 background = cv2.imread("grid_background.jpg")
 background = cv2.cvtColor(background, cv2.COLOR_BGR2RGB)
 background = transform_grid(image=background)['image']
+height, width, _ = background.shape
+blank_image = np.ones((height, width, 2), np.uint8) * 255
+numbers = np.ones((height, width), np.uint8) * 255
 
 # Define the transformation to convert images to PyTorch tensors
 transform = transforms.Compose([transforms.ToTensor()])
@@ -56,14 +60,19 @@ for i, (image, label) in enumerate(train_loader_pytorch):
       
         # grab image
         img = image[0].squeeze().numpy()
-        
-        # convert to 255 int !
+        img = 255 - (img * 255)
         
         # transform
-        test = transform_number(image = img)['image']
+        img = transform_number(image = img)['image']
+        x, y = img.shape
         
-        # check conversion of formats
-        cv2.imwrite("test.png", test)
+        tmp = blank_image
+        tmp[:,:, 0] = numbers
+        start_x = (width - (i + 1) * 35)
+        print(start_x)
+        
+        tmp[60:(60 + y), start_x - x:start_x, 1] = img
+        numbers = np.min(tmp, axis=2)
         
         # save label item
         digits.insert(0, label.item())
@@ -72,6 +81,13 @@ for i, (image, label) in enumerate(train_loader_pytorch):
         if i == 0 and include_decimal and random.random() < 0.5:
           decimal_separator = random.choice([".", ","])
           digits.insert(0, decimal_separator)
+          
+          # grab random decimal character
+          
+          # transform
+          
+          # insert in numbers layer
+          
     else:
         break  # Exit the loop after printing 5 samples
 
@@ -82,7 +98,14 @@ value = ''.join(digits)
 if include_minus and random.random() < 0.5:
     digits.insert(0, "-")
     value = "-" + value
-  
-# join all digits
+
+background[:,:,1] = numbers
+dst = np.min(background, axis=2)
+dst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
+
+# final transformation
+dst = transform_image(image = dst)['image']
+
+# check conversion of formats
+cv2.imwrite("test.png", dst)
 print(digits)
-print(value)

@@ -47,41 +47,26 @@ transform_number = A.Compose([
   # always resize to a fixed 40px
   # first
   A.Resize(
-    height=40,
-    width=40,
+    height=70,
+    width=70,
     interpolation=1,
-    always_apply=None,
     p=1.0
   ),
   A.Rotate(
-    limit=(-10, 10),
+    limit=(-4, 4),
     interpolation=1,
-    border_mode=4,
-    value=None,
-    mask_value=None,
-    rotate_method="largest_box",
-    crop_border=False, # check outcome on this
-    always_apply=None,
+    border_mode=3,
     p=0.5,
   ),
-  # 10% tolerance on scaling
+  # 20% tolerance on scaling
   # to introduce size variability
   A.RandomScale(
     scale_limit=0.2, 
     interpolation=1,
-    always_apply=None,
-    p=0.5,
-  ),
-  A.Sharpen(
-    alpha=(0.2, 0.5),
-    lightness=(0.5, 1.0),
-    always_apply=None,
-    p=0.5
+    p=0.8,
   ),
   A.GaussianBlur(
-    blur_limit=(3, 3),
-    sigma_limit=0,
-    always_apply=None,
+    blur_limit=(0, 11),
     p=0.5
   )
 ])
@@ -92,12 +77,7 @@ transform_grid = A.Compose([
   A.Rotate(
     limit=(-10, 10),
     interpolation=1,
-    border_mode=4,
-    value=None,
-    mask_value=None,
-    rotate_method="largest_box",
-    crop_border=False,
-    always_apply=None,
+    border_mode=3,
     p=0.2,
   ),
   A.RandomCrop(
@@ -109,31 +89,14 @@ transform_grid = A.Compose([
 ])
 
 transform_image = A.Compose([
-    A.ElasticTransform(
-    alpha=1,
-    sigma=50,
-    alpha_affine=50,
-    interpolation=1,
-    border_mode=4,
-    value=None,
-    mask_value=None,
-    always_apply=None,
-    approximate=False,
-    same_dxdy=False,
-    p=0.5,
-  ),
   A.GaussNoise(
     var_limit=(10.0, 50.0),
     mean=0,
-    per_channel=True,
-    always_apply=None,
     p=0.5
   ),
   A.RandomBrightnessContrast(
-    brightness_limit=(-0.2, 0.2),
-    contrast_limit=(-0.2, 0.2),
-    brightness_by_max=True,
-    always_apply=None,
+    brightness_limit=(-0.5, 0.5),
+    contrast_limit=(-0.5, 0.5),
     p=0.5
   )
 ])
