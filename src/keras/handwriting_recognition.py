@@ -201,6 +201,7 @@ class CTCLayer(keras.layers.Layer):
         return y_pred
 
 def build_model():
+  
     # Inputs to the model
     input_img = keras.Input(shape=(image_width, image_height, 1), name="image")
     labels = keras.layers.Input(name="label", shape=(None,))
@@ -275,6 +276,7 @@ for batch in validation_ds:
     validation_labels.append(batch["label"])
 
 def calculate_edit_distance(labels, predictions):
+    
     # Get a single batch and convert its labels to sparse tensors.
     saprse_labels = tf.cast(tf.sparse.from_dense(labels), dtype=tf.int64)
 

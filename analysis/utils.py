@@ -47,8 +47,8 @@ transform_number = A.Compose([
   # always resize to a fixed 40px
   # first
   A.Resize(
-    height=70,
-    width=70,
+    height=65,
+    width=65,
     interpolation=1,
     p=1.0
   ),
@@ -66,7 +66,35 @@ transform_number = A.Compose([
     p=0.8,
   ),
   A.GaussianBlur(
-    blur_limit=(0, 11),
+    blur_limit=(5, 13),
+    p=0.5
+  )
+])
+
+transform_sign = A.Compose([
+  # always resize to a fixed 40px
+  # first
+  A.Resize(
+    height=30,
+    width=30,
+    interpolation=1,
+    p=1.0
+  ),
+  A.Rotate(
+    limit=(-4, 4),
+    interpolation=1,
+    border_mode=3,
+    p=0.5,
+  ),
+  # 20% tolerance on scaling
+  # to introduce size variability
+  A.RandomScale(
+    scale_limit=0.2, 
+    interpolation=1,
+    p=0.8,
+  ),
+  A.GaussianBlur(
+    blur_limit=(1, 11),
     p=0.5
   )
 ])
