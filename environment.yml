@@ -1,0 +1,33 @@
+name: weahtr
+channels:
+  - conda-forge
+  - pytorch-nightly
+  - nvidia
+
+dependencies:
+  - python>=3.11
+  - setuptools
+  - wheel
+  - numpy
+  - matplotlib
+  - pandas
+  - yaml
+  - pip
+  - tqdm
+# notebook environment
+  - jupyterlab
+  - notebook
+  - nb_conda_kernels
+# The following are for using pytorch with a GPU
+  - pytorch
+  - torchaudio
+  - torchvision
+  - pytorch-cuda=12.1
+# These modules are computer vision specific
+  - opencv
+  - albumentations
+  - imgaug
+  - segmentation-models-pytorch
+  - pytorch-lightning==2.1.3
+# Logging
+  - tensorboardx
