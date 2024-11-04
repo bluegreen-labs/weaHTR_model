@@ -1,34 +1,36 @@
-# set base docker image to work from
-# Tensorflow in this case
-FROM nvcr.io/nvidia/tensorflow:23.09-tf2-py3
+# For NVIDIA acceleration make sure to
+# enable the NVIDIA container toolkit
+# ubuntu/jammy is the default image,
+# nvidia/cuda is the old nvidia image
+# pytorch the newer pytorch image which
+# might conflict with a tensorflow Install
+# if acceleration is desired
 
-# create a non-root user named khufkens, 
-# give them the password "khufkens" put them in the sudo group
-# rename to your local username
-RUN useradd -d /home/khufkens -m -s /bin/bash khufkens && echo "khufkens:khufkens" | chpasswd && adduser khufkens sudo
+# FROM ubuntu/jammy
+FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
+#FROM nvcr.io/nvidia/pytorch:24.05-py3
+# FROM pytorch/pytorch:2.3.1-cuda12.1-cudnn8-devel
 
-# start working in the "khufkens" home directory
-WORKDIR /workspace
+# copy package content
+COPY environment.yml .
 
-# install required python packages
-RUN pip install jupyter
-RUN pip install matplotlib
+# Install base utilities
+RUN apt-get update
+RUN apt-get install -y build-essential wget software-properties-common
 
-# set user to the local username
-USER khufkens
+# install libraries
+RUN apt-get install -y libgl1 libavcodec-dev libavformat-dev libswscale-dev \
+ libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
+ libgtk2.0-dev libgtk-3-dev libpng-dev libjpeg-dev \
+ libopenexr-dev libtiff-dev libwebp-dev
 
-# expose outgoing traffic on port 8888
-EXPOSE 8888
+# install miniconda
+ENV CONDA_DIR /opt/conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+RUN /bin/bash ~/miniconda.sh -b -p /opt/conda
 
-# In the project run:
-#
-# docker build -t tensorflow-container .
-# docker run --runtime=nvidia -it -p "8888:8888" -v $(pwd):/current_project/ -u $(whoami) tensorflow-container
-# 
-# Adding -u $(whoami) will make files written by the container have the user permissions
-# 
-# Start Jupyter notebooks:
-# jupyter notebook -port=8888 --ip=0.0.0.0 --allow-root --no-browser .
-# browse to http://localhost:8888 to access the notebook
-#
-# TODO: check user config
+# recreate and activate the environment
+# suppress TF log level output
+RUN /opt/conda/bin/conda env create -f environment.yml
+RUN echo "source activate weahtr" > ~/.bashrc
+ENV PATH $CONDA_DIR/bin:$PATH
